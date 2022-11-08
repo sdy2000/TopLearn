@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
+    <PackageReference Include="SharpCompress" Version="0.32.2" />
+    <PackageReference Include="ZarinPalSandbox" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TopLearn.Core\TopLearn.Core.csproj" />
+    <ProjectReference Include="..\TopLearn.DataLayer\TopLearn.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Course\demoes\" />
+    <Folder Include="wwwroot\MyImages\" />
+    <Folder Include="wwwroot\CourseFiles\" />
+    <Folder Include="wwwroot\CoureseFilesOnline\" />
+    <Folder Include="wwwroot\courseOnline\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\Config.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
+    <None Include="wwwroot\js\jquery.unobtrusive-ajax.js" />
+    <None Include="wwwroot\js\jquery.unobtrusive-ajax.min.js" />
+    <None Include="wwwroot\js\jquery.validate.js" />
+    <None Include="wwwroot\js\jquery.validate.min.js" />
+    <None Include="wwwroot\js\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\js\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\js\kendo.all.min.js" />
+    <None Include="wwwroot\js\modernizr-custom.js" />
+    <None Include="wwwroot\js\script.js" />
+  </ItemGroup>
+
+</Project>

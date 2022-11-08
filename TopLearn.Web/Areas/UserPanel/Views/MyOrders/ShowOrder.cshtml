@@ -1,0 +1,146 @@
+﻿@using TopLearn.Core.Servises.Interfaces
+@model TopLearn.DataLayer.Entities.Order.Order
+@inject IUserService _userService
+@{
+    ViewData["Title"] = "نمایش فاکتور ";
+    int sumOrder = Model.OrderSum;
+    string discountType = ViewBag.Type.ToString();
+}
+
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> نمایش فاکتور </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1>نمایش فاکتور </h1></header>
+                        @if (ViewBag.finaly == true)
+                        {
+                            <div class="alert alert-success">
+                                فاکتور با موفقیت پدراخت گردید
+                            </div>
+                        }
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                            <thead>
+                                <tr>
+                                    <th> دوره</th>
+                                    <th> تعداد</th>
+                                    <th> قیمت</th>
+                                    <th> جمع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td><a href="/ShowCourse/@item.CourseId" target="_blank">@item.Course.CourseTitle</a></td>
+                                        <td>@item.Count</td>
+                                        <td>@item.Price</td>
+                                        <td>@((item.Count*item.Price).ToString("#,0"))</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            @if (!Model.IsFinaly)
+                            {
+                                <tr>
+                                    <td colspan="2" class="text-right">کد تخفیف</td>
+                                    <td colspan="3" class="text-center">
+                                        <form action="/UserPanel/MyOrders/UseDescount" method="post">
+
+                                            <input type="hidden" name="orderId" value="@Model.OrderId" />
+                                            <input type="text" name="code" class="form-control" />
+                                            <input type="submit" class="btn btn-primary btn-block" style="margin-top:7px;" value="اعمال" />
+
+                                        </form>
+                                        @if (discountType != null)
+                                        {
+                                            switch (discountType)
+                                            {
+                                                case "Success":
+                                                    {
+                                                        <div class="alert alert-success">
+                                                            <p class="text-muted">کد با موفقیت اعمال شد .</p>
+                                                        </div>
+                                                        break;
+                                                    }
+                                                case "ExpierDate":
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            <p class="text-muted"> تاریخ کد منقضی شده است</p>
+                                                        </div>
+                                                        break;
+                                                    }
+                                                case "NotFound":
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            <p class="text-muted">کد معتبر نیست.</p>
+                                                        </div>
+                                                        break;
+                                                    }
+                                                case "Finished":
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            <p class="text-muted">کد به اتمام رسیده است .</p>
+                                                        </div>
+                                                        break;
+                                                    }
+                                                case "UserUsed":
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            <p class="text-muted">این کد قبلا توسط شما استفاده شده است .</p>
+                                                        </div>
+                                                        break;
+                                                    }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2" class="text-right">جمع کل</td>
+                                <td colspan="3" class="text-center">
+                                    @(sumOrder.ToString("#,0"))
+                                </td>
+                            </tr>
+                            @if (!Model.IsFinaly)
+                            {
+                                <tr>
+                                    <td colspan="2" class="text-right"></td>
+                                    <td colspan="2" class="text-center">
+                                        @if (_userService.BalanceUserWallet(User.Identity.Name) >= sumOrder)
+                                        {
+                                            <a href="/UserPanel/MyOrders/FinalyOrder/@Model.OrderId" class="btn btn-success btn-block">تایید فاکتور</a>
+                                        }
+                                        else
+                                        {
+                                            <a disabled class="btn btn-success btn-block">تایید فاکتور</a>
+                                            <div class="alert alert-danger">
+                                                موجودی کیف پول شما کافی نمی باشد لطفا ار طریق
+                                                <a href="/UserPanel/Wallet" class="alert-link">این لینک </a>
+                                                اقدام به شارژ کیف پول خود فرمایید .
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

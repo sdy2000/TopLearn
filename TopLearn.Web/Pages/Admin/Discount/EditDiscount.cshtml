@@ -1,0 +1,93 @@
+﻿@page "{id}"
+@using TopLearn.Core.Convertors
+@model TopLearn.Web.Pages.Admin.Discount.EditDiscountModel
+@{
+    ViewData["Title"] = "ویرایش کد تخفیف ";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header"> افزودن کد تخفیف جدید</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <form method="post">
+         
+        <input type="hidden" asp-for="Descount.DiscountId" />
+
+        <div class="col-md-8 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    کد تخفیف
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+
+
+                    <div class="form-group">
+                        <label>کد تخفیف : </label>
+                        <input type="text" asp-for="Descount.DescountCode" class="form-control">
+                        <span asp-validation-for="Descount.DescountCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>درصد تخفیف : </label>
+                                <input type="number" asp-for="Descount.DescountPercent" class="form-control">
+                                <span asp-validation-for="Descount.DescountPercent" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>تعداد استفاده از تخفیف : </label>
+                                <input type="number" asp-for="Descount.UsableCount" class="form-control">
+                                <span asp-validation-for="Descount.UsableCount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>از تاریخ : </label>
+                                <input  value="@((Model.Descount.StartDate!=null)?Model.Descount.StartDate.Value.ToShamsi():"")"
+                                    id="stDate" name="stDate"/>
+                                <span asp-validation-for="Descount.StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>تا تاریخ : </label>
+                                <input value="@((Model.Descount.EdnDate!=null)?Model.Descount.EdnDate.Value.ToShamsi():"")"
+                                     id="edDate" name="edDate"/>
+                                <span asp-validation-for="Descount.EdnDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <br />
+                    <p>
+                        <input type="submit" value="ذخیره اطلاعات" class="btn btn-success btn-outline" />
+                    </p>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+
+    </form>
+</div>
+@section Scripts{
+    
+    <link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.default.min.css" rel="stylesheet" />
+
+    <script src="/js/kendo.all.min.js"></script>
+    <script>
+            // create DatePicker from input HTML element
+            $("#stDate").kendoDatePicker();
+        $("#edDate").kendoDatePicker();
+    </script>
+}
